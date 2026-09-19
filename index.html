@@ -15,7 +15,7 @@
 <style>
 :root{
   --ink:#131313; --desk:#0f1113; --panel:#181a1d; --line:#2a2d31;
-  --bone:#EDE4D6; --bone-2:#cfc6b8; --taupe:#9B8E7E; --orange:#C96A24; --lamp:#F0C98C;
+  --bone:#EDE4D6; --bone-2:#cfc6b8; --taupe:#9B8E7E; --accent:#B5786C; --lamp:#F0C98C;
   --display:"Barlow Condensed",Impact,"Arial Narrow",sans-serif;
   --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
@@ -34,8 +34,8 @@ h3{font-size:26px;text-transform:uppercase;letter-spacing:.03em}
 p{margin:0 0 1em;max-width:62ch}
 .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:14px 22px;border:1px solid var(--bone-2);border-radius:4px;color:var(--bone);transition:background .2s,color .2s,border-color .2s}
 .btn:hover,.btn:focus-visible{background:var(--bone);color:var(--ink);outline:none}
-.btn.primary{background:var(--orange);border-color:var(--orange);color:#fff}
-.btn.primary:hover,.btn.primary:focus-visible{background:#e07c30;border-color:#e07c30;color:#fff}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover,.btn.primary:focus-visible{background:#c4877b;border-color:#c4877b;color:#fff}
 .btn[data-todo]{position:relative}
 .btn[data-todo]::after{content:"";position:absolute;inset:-1px;border:1px dashed rgba(240,201,140,.35);border-radius:4px;pointer-events:none}
 
@@ -44,7 +44,7 @@ nav{position:fixed;inset:0 0 auto 0;z-index:10;display:flex;align-items:center;j
 nav>*{pointer-events:auto}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.08em}
 .brand img{width:34px;height:34px}
-.brand span b{color:var(--orange);font-weight:800}
+.brand span b{color:var(--accent);font-weight:800}
 nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
 nav ul a{text-decoration:none;color:var(--bone-2)}
 nav ul a:hover{color:var(--bone)}
@@ -80,7 +80,7 @@ section{padding-block:clamp(72px,10vw,140px)}
 .pillar{--mx:50%;--my:50%;position:relative;padding:28px 26px 30px;background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden;isolation:isolate}
 .pillar::before{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--mx) var(--my), rgba(240,201,140,.14), transparent 60%);opacity:0;transition:opacity .3s;z-index:-1}
 .pillar:hover::before{opacity:1}
-.pillar .n{font-family:var(--mono);font-size:12px;color:var(--orange);letter-spacing:.14em;margin-bottom:14px}
+.pillar .n{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.14em;margin-bottom:14px}
 .pillar h3{margin-bottom:12px}
 .pillar p{font-size:16px;color:var(--bone-2);margin:0}
 
@@ -97,7 +97,7 @@ section{padding-block:clamp(72px,10vw,140px)}
 .team{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:36px}
 @media (max-width:720px){.team{grid-template-columns:1fr}}
 .person{padding:22px 24px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
-.person .role{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+.person .role{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
 .person h3{text-transform:none;letter-spacing:0;font-size:24px}
 .person p{font-size:15.5px;color:var(--bone-2);margin:8px 0 0}
 .facts{display:flex;gap:28px;flex-wrap:wrap;margin-top:34px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe)}
