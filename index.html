@@ -288,9 +288,14 @@ const cardMat = new THREE.ShaderMaterial({
       // holographic foil inside the art window
       vec2 art = step(vec2(0.065,0.395), vUv) * step(vUv, vec2(0.935,0.885));
       float inArt = art.x*art.y;
-      float hue = NdV*1.6 + vUv.x*0.55 - vUv.y*0.35 + uTime*0.015;
-      float band = smoothstep(0.28, 0.0, abs(fract(hue*0.9)-0.5) - 0.10);
-      col += rainbow(hue) * band * inArt * (0.09 + 0.16*pow(1.0-NdV, 2.0));
+      // the band sweeps across the face as the card tilts: it follows the reflection direction
+      vec3 R = reflect(-V, N);
+      float sweep = R.x*1.6 + R.y*1.2 + uTime*0.01;                 // where the band sits (moves with tilt)
+      float hue   = sweep*0.9 + vUv.x*1.4 - vUv.y*1.0;               // full spectrum spread across the face
+      float band  = smoothstep(0.34, 0.0, abs(fract(sweep*0.8 + vUv.x*0.5 - vUv.y*0.35)-0.5) - 0.10);
+      float streak = 0.75 + 0.25*sin((vUv.x - vUv.y)*70.0 + R.x*12.0);  // diagonal foil striations
+      vec3 iri = mix(rainbow(hue), vec3(1.0), 0.35);
+      col += iri * band * streak * inArt * (0.22 + 0.28*pow(1.0-NdV, 1.5));
 
       // the scratch: a micro-facet tilted about the scratch axis; lights up only near one angle
       float t; float sd = segDist(vUv, uA, uB, t);
@@ -373,7 +378,7 @@ function scratchGlint(){
 let t0 = performance.now();
 function frame(now){
   const t = (now - t0) / 1000;
-  const idle = now - lastInput > 2600;
+  const idle = now - lastInput > 6000;
   let tx = target.x, ty = target.y;
   if (idle && !reduce){ tx = Math.sin(t*0.45)*0.55; ty = Math.sin(t*0.31 + 1.2)*0.45; }
   if (reduce && idle){ tx = 0.35; ty = 0.15; }
