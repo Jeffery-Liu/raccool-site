@@ -61,7 +61,7 @@ guidelines say it "must be followed, not corrected".
 
 ## 3. Logo
 
-Files: `Logo/Final/*.svg`. All SVG, transparent background.
+Files: `Logo/Final/files_polished/*.svg` — the only approved set (names match the PDF File Index). The SVGs in the `Logo/Final/` root and `Logo/Final/files/` are earlier iterations; do not use them.
 
 | Configuration | When | File pattern |
 |---|---|---|

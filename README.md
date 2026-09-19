@@ -10,7 +10,7 @@ One static page: `index.html` + `assets/`. No build step, no server code, no fra
 | `assets/card-pyrodon.jpg` | Card face used by the 3D hero (perspective-corrected from the desk render) |
 | `assets/desk.jpg`, `office.jpg`, `hearing.jpg` | Gallery images (concept renders) |
 | `assets/foil.jpg`, `two-angles.jpg`, `capsule.jpg` | Spare images; `capsule.jpg` is the social-share preview (`og:image`) |
-| `assets/raccool-*.svg` | Logo mark and lockup (dark-bone variants are the ones in use) |
+| `assets/raccool-*.svg` | Logo mark and lockup — the `-dark` files from `Logo/Final/files_polished/` (Palette 02); the SVGs in `Logo/Final/` root are superseded |
 
 ## Preview locally
 
