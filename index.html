@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RACCOOL Interactive</title>
+<meta name="description" content="RACCOOL Interactive is a Surrey, B.C. game studio. Our first title, SLABBED: TCG Card Grader, is a document-thriller about tilting cards under a lamp and deciding what they really are.">
+<meta property="og:title" content="RACCOOL Interactive — SLABBED: TCG Card Grader">
+<meta property="og:description" content="Tilt the card. Find the flaw. Sign the grade. Live with it.">
+<meta property="og:image" content="assets/capsule.jpg">
+<link rel="icon" href="assets/raccool-mark-dark-bone.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ink:#131313; --desk:#0f1113; --panel:#181a1d; --line:#2a2d31;
+  --bone:#EDE4D6; --bone-2:#cfc6b8; --taupe:#9B8E7E; --orange:#C96A24; --lamp:#F0C98C;
+  --display:"Barlow Condensed",Impact,"Arial Narrow",sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --gutter:clamp(16px,5vw,64px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--ink)}
+body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--serif);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:var(--gutter)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe)}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:.95;margin:0;text-wrap:balance;letter-spacing:.01em}
+h2{font-size:clamp(40px,6vw,72px);text-transform:uppercase}
+h3{font-size:26px;text-transform:uppercase;letter-spacing:.03em}
+p{margin:0 0 1em;max-width:62ch}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:14px 22px;border:1px solid var(--bone-2);border-radius:4px;color:var(--bone);transition:background .2s,color .2s,border-color .2s}
+.btn:hover,.btn:focus-visible{background:var(--bone);color:var(--ink);outline:none}
+.btn.primary{background:var(--orange);border-color:var(--orange);color:#fff}
+.btn.primary:hover,.btn.primary:focus-visible{background:#e07c30;border-color:#e07c30;color:#fff}
+.btn[data-todo]{position:relative}
+.btn[data-todo]::after{content:"";position:absolute;inset:-1px;border:1px dashed rgba(240,201,140,.35);border-radius:4px;pointer-events:none}
+
+/* nav */
+nav{position:fixed;inset:0 0 auto 0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top,0px)) var(--gutter) 14px;background:linear-gradient(rgba(19,19,19,.9),rgba(19,19,19,0));pointer-events:none}
+nav>*{pointer-events:auto}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.08em}
+.brand img{width:34px;height:34px}
+.brand span b{color:var(--orange);font-weight:800}
+nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+nav ul a{text-decoration:none;color:var(--bone-2)}
+nav ul a:hover{color:var(--bone)}
+@media (max-width:720px){nav ul{display:none}}
+
+/* hero */
+#hero{position:relative;height:100svh;min-height:600px;overflow:hidden;background:
+  radial-gradient(55% 50% at 60% 30%, rgba(240,201,140,.14), transparent 70%),
+  radial-gradient(120% 80% at 50% 110%, #1b1d20, var(--desk) 60%)}
+#hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+.hero-copy{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(28px,6vh,64px);display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;pointer-events:none}
+.hero-copy>*{pointer-events:auto}
+.hero-copy h1{font-size:clamp(64px,12vw,150px);text-transform:uppercase;line-height:.85;color:var(--bone)}
+.hero-copy h1 small{display:block;font-size:.28em;font-weight:500;letter-spacing:.12em;color:var(--lamp);margin-top:10px}
+.hero-copy .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.hero-side{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);text-align:right;max-width:240px;line-height:1.7}
+.hero-side b{color:var(--bone);font-weight:500}
+@media (max-width:720px){.hero-copy{grid-template-columns:1fr}.hero-side{text-align:left;max-width:none}}
+@media (max-width:720px){#flaw{transform:translate(-50%,0);top:9%}}
+#flaw{position:absolute;left:50%;top:14%;transform:translate(calc(-50% + 330px),0);font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--lamp);background:rgba(19,19,19,.72);border:1px solid rgba(240,201,140,.5);padding:8px 12px;border-radius:3px;opacity:0;transition:opacity .25s;pointer-events:none;white-space:nowrap}
+#flaw.on{opacity:1}
+#flaw::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--lamp);margin-right:9px;vertical-align:1px;box-shadow:0 0 12px var(--lamp)}
+
+/* sections */
+section{padding-block:clamp(72px,10vw,140px)}
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,72px);align-items:start}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+.lede{font-size:clamp(19px,2vw,23px);line-height:1.5}
+.rule{height:1px;background:var(--line);margin:18px 0 28px;max-width:120px}
+
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+@media (max-width:860px){.pillars{grid-template-columns:1fr}}
+.pillar{--mx:50%;--my:50%;position:relative;padding:28px 26px 30px;background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden;isolation:isolate}
+.pillar::before{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--mx) var(--my), rgba(240,201,140,.14), transparent 60%);opacity:0;transition:opacity .3s;z-index:-1}
+.pillar:hover::before{opacity:1}
+.pillar .n{font-family:var(--mono);font-size:12px;color:var(--orange);letter-spacing:.14em;margin-bottom:14px}
+.pillar h3{margin-bottom:12px}
+.pillar p{font-size:16px;color:var(--bone-2);margin:0}
+
+.gallery{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;gap:14px;margin-top:40px}
+.gallery figure{margin:0;position:relative;overflow:hidden;border-radius:6px;border:1px solid var(--line);background:var(--panel)}
+.gallery figure:first-child{grid-row:span 2}
+.gallery img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/9;transition:transform .6s ease}
+.gallery figure:first-child img{aspect-ratio:auto;height:100%}
+.gallery figure:hover img{transform:scale(1.025)}
+.gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:10px 14px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--bone-2);background:linear-gradient(transparent,rgba(19,19,19,.85))}
+@media (max-width:860px){.gallery{grid-template-columns:1fr}.gallery figure:first-child{grid-row:auto}}
+.note{font-family:var(--mono);font-size:12px;color:var(--taupe);margin-top:14px;letter-spacing:.04em}
+
+.team{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:36px}
+@media (max-width:720px){.team{grid-template-columns:1fr}}
+.person{padding:22px 24px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+.person .role{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+.person h3{text-transform:none;letter-spacing:0;font-size:24px}
+.person p{font-size:15.5px;color:var(--bone-2);margin:8px 0 0}
+.facts{display:flex;gap:28px;flex-wrap:wrap;margin-top:34px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe)}
+.facts b{display:block;font-family:var(--display);font-size:34px;letter-spacing:0;color:var(--bone);font-weight:700;line-height:1;margin-bottom:6px}
+
+footer{border-top:1px solid var(--line);padding:56px 0 calc(40px + env(safe-area-inset-bottom,0px))}
+footer .wrap{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center}
+footer img{width:150px}
+footer .links{display:flex;gap:22px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+footer .links a{text-decoration:none;color:var(--bone-2)}
+footer .fine{font-family:var(--mono);font-size:11px;color:var(--taupe);letter-spacing:.06em;text-align:right}
+@media (max-width:860px){footer .wrap{grid-template-columns:1fr}footer .fine{text-align:left}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.gallery img{transition:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="#"><img src="assets/raccool-mark-dark-bone.svg" alt=""><span>RAC<b>COOL</b></span></a>
+  <ul>
+    <li><a href="#game">The game</a></li>
+    <li><a href="#studio">Studio</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header id="hero">
+  <canvas id="card"></canvas>
+  <div id="flaw">Surface flaw — hairline scratch</div>
+  <div class="hero-copy">
+    <div>
+      <h1>Slabbed<small>TCG Card Grader</small></h1>
+      <div class="actions">
+        <a class="btn primary" href="#" data-todo="steam">Wishlist on Steam</a>
+        <a class="btn" href="#game">What is it?</a>
+      </div>
+    </div>
+    <div class="hero-side">
+      <b>Move to tilt the card.</b><br>Find the angle where the scratch shows.<br>That is the whole game.
+    </div>
+  </div>
+</header>
+
+<section id="game">
+  <div class="wrap split">
+    <div>
+      <div class="eyebrow">A document-thriller · PC &amp; Steam Deck</div>
+      <h2>You are the grader.<br>The number on the label is yours.</h2>
+      <div class="rule"></div>
+    </div>
+    <div>
+      <p class="lede">A trading-card grading house in Vancouver. Thirty days. Every card comes across your desk, and you tilt it under the lamp to find what it has survived — hairline scratches, pressure dents, print lines — visible only at the angle that catches them.</p>
+      <p>You decide what the card is and what it is worth: a 1–10 grade, or no grade at all. Under quota. While the company bills the customer more when your number goes higher.</p>
+      <p>On Day 9 the second grader who taught you the job starts changing your grades. On Day 30 a card you refused to grade turns up sealed with a 10 and your name on the file. The last day is your hearing, not your shift.</p>
+    </div>
+  </div>
+  <div class="wrap pillars">
+    <article class="pillar"><div class="n">01</div><h3>Every verdict is derivable</h3><p>The right grade is computed from the card in front of you, never rolled. If you were wrong, you can go back and see why.</p></article>
+    <article class="pillar"><div class="n">02</div><h3>The tilt is the game</h3><p>Flaws live on the surface, not in a menu. A real light, a real angle, and a hand that learns where to look.</p></article>
+    <article class="pillar"><div class="n">03</div><h3>The record remembers</h3><p>Two ledgers of every verdict — yours and the company's. The day they start to disagree is the day the story begins.</p></article>
+  </div>
+</section>
+
+<section id="look" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">Target look</div>
+    <h2>A desk, a lamp, and a card that tells the truth at one angle.</h2>
+    <div class="gallery">
+      <figure><img src="assets/desk.jpg" alt="The grader's desk: a holographic card under a lamp beside a rulebook and inspection record" loading="lazy"><figcaption>The desk — inspection view</figcaption></figure>
+      <figure><img src="assets/office.jpg" alt="A small grading office in Vancouver on a rainy evening" loading="lazy"><figcaption>Burrard Card Grading, Vancouver</figcaption></figure>
+      <figure><img src="assets/hearing.jpg" alt="A hearing room with a sealed card graded 10 and a binder of inspection records" loading="lazy"><figcaption>Day 30 — the hearing</figcaption></figure>
+    </div>
+    <div class="note">Concept renders of the intended look. In-game footage follows the vertical slice.</div>
+  </div>
+</section>
+
+<section id="studio">
+  <div class="wrap split">
+    <div>
+      <div class="eyebrow">RACCOOL Interactive Inc. · Surrey, British Columbia</div>
+      <h2>We make games about looking closely.</h2>
+      <div class="rule"></div>
+      <div class="facts">
+        <div><b>2026</b>Founded</div>
+        <div><b>B.C.</b>Owned &amp; based</div>
+        <div><b>1st</b>Title in development</div>
+      </div>
+    </div>
+    <div>
+      <p class="lede">Original, systems-driven games in which the player's judgment is the mechanic, and the consequences of that judgment are recorded and, eventually, read back to them.</p>
+      <p>SLABBED is our first title. It is design-complete and prototype-validated, with a vertical slice in production for December 2026 and a public demo planned for 2027.</p>
+      <div class="team">
+        <div class="person"><div class="role">Founder · Game Director</div><h3>Jinfeng Liu</h3><p>Design and engineering. Wrote the concept, the systems, and the shader that makes a scratch visible at one angle and gone at the next.</p></div>
+        <div class="person"><div class="role">Chief Financial Officer</div><h3>Lun Mai</h3><p>CPA (Canada &amp; US). Operations, finance and reporting. Formerly COO of a New York financial-district firm.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <img src="assets/raccool-lockup-dark-bone.svg" alt="RACCOOL Interactive Inc.">
+    <div class="links">
+      <a href="mailto:raccool.interactive@gmail.com">raccool.interactive@gmail.com</a>
+      <a href="#" data-todo="steam">Steam</a>
+      <a href="#" data-todo="discord">Discord</a>
+    </div>
+    <div class="fine">© 2026 RACCOOL Interactive Inc.<br>Surrey, British Columbia, Canada</div>
+  </div>
+</footer>
+
+<script>
+// Spotlight on the pillar cards — the lamp follows the cursor.
+document.querySelectorAll('.pillar').forEach(el=>{
+  el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px');});
+});
+</script>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+
+const canvas = document.getElementById('card');
+const flawTag = document.getElementById('flaw');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50);
+camera.position.set(0, 0, 9.5);
+
+// One lamp, fixed — like the game. Warm, upper-left, in front of the card.
+const LAMP = new THREE.Vector3(0.5, 3.2, 5.0);
+
+// The scratch: a segment in card UV space, matching the line baked into the art.
+const SCRATCH_A = new THREE.Vector2(0.453, 0.866);
+const SCRATCH_B = new THREE.Vector2(0.969, 0.665);
+const SCRATCH_TILT = 0.14; // radians the scratch's micro-facet is tilted off the card normal
+
+const tex = new THREE.TextureLoader().load('assets/card-pyrodon.jpg', t => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = renderer.capabilities.getMaxAnisotropy(); });
+
+const cardMat = new THREE.ShaderMaterial({
+  transparent: true,
+  uniforms: {
+    map: {value: tex}, uLamp: {value: LAMP}, uTime: {value: 0},
+    uA: {value: SCRATCH_A}, uB: {value: SCRATCH_B}, uTilt: {value: SCRATCH_TILT},
+  },
+  vertexShader: `
+    varying vec2 vUv; varying vec3 vN; varying vec3 vP; varying vec3 vT;
+    void main(){
+      vUv = uv;
+      vN = normalize(mat3(modelMatrix) * normal);
+      vT = normalize(mat3(modelMatrix) * vec3(1.0,0.0,0.0));
+      vec4 wp = modelMatrix * vec4(position,1.0); vP = wp.xyz;
+      gl_Position = projectionMatrix * viewMatrix * wp;
+    }`,
+  fragmentShader: `
+    precision highp float;
+    uniform sampler2D map; uniform vec3 uLamp; uniform float uTime;
+    uniform vec2 uA, uB; uniform float uTilt;
+    varying vec2 vUv; varying vec3 vN; varying vec3 vP; varying vec3 vT;
+
+    float sdRoundRect(vec2 p, vec2 b, float r){ vec2 q = abs(p)-b+r; return length(max(q,0.0)) + min(max(q.x,q.y),0.0) - r; }
+    float segDist(vec2 p, vec2 a, vec2 b, out float t){ vec2 pa=p-a, ba=b-a; t=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0); return length(pa-ba*t); }
+    vec3 rainbow(float h){ return 0.5 + 0.5*cos(6.28318*(h + vec3(0.0,0.33,0.67))); }
+
+    void main(){
+      // rounded card silhouette
+      float d = sdRoundRect(vUv-0.5, vec2(0.5), 0.045);
+      float alpha = 1.0 - smoothstep(-0.004, 0.0, d);
+      if (alpha <= 0.001) discard;
+
+      vec3 base = texture2D(map, vUv).rgb;
+      vec3 N = normalize(vN);
+      vec3 V = normalize(cameraPosition - vP);
+      vec3 L = normalize(uLamp - vP);
+      vec3 H = normalize(L + V);
+      float NdL = max(dot(N,L), 0.0);
+      float NdV = max(dot(N,V), 0.0);
+
+      // paper + varnish
+      vec3 col = base * (0.62 + 0.42*NdL);
+      col += vec3(1.0,0.93,0.82) * pow(max(dot(N,H),0.0), 48.0) * 0.28;
+
+      // holographic foil inside the art window
+      vec2 art = step(vec2(0.065,0.395), vUv) * step(vUv, vec2(0.935,0.885));
+      float inArt = art.x*art.y;
+      float hue = NdV*1.6 + vUv.x*0.55 - vUv.y*0.35 + uTime*0.015;
+      float band = smoothstep(0.28, 0.0, abs(fract(hue*0.9)-0.5) - 0.10);
+      col += rainbow(hue) * band * inArt * (0.09 + 0.16*pow(1.0-NdV, 2.0));
+
+      // the scratch: a micro-facet tilted about the scratch axis; lights up only near one angle
+      float t; float sd = segDist(vUv, uA, uB, t);
+      float core = 1.0 - smoothstep(0.0012, 0.0030, sd);
+      float halo = 1.0 - smoothstep(0.0030, 0.0110, sd);
+      vec3 axis = normalize(vec3(uB - uA, 0.0));
+      vec3 axisW = normalize(mat3(vT, cross(N, vT), N) * axis);
+      vec3 Bn = normalize(cross(N, axisW));
+      vec3 Ns = normalize(N*cos(uTilt) + Bn*sin(uTilt));
+      float glint = pow(max(dot(Ns,H),0.0), 320.0);
+      float ends = smoothstep(0.0,0.08,t) * smoothstep(1.0,0.92,t);
+      col += vec3(1.0,0.96,0.88) * glint * ends * (core*2.4 + halo*0.5);
+      col += vec3(1.0,0.9,0.7) * core * ends * 0.05; // barely-there when off-angle
+
+      // edge darkening
+      col *= 1.0 - 0.18*smoothstep(-0.03, 0.0, d);
+      gl_FragColor = vec4(col, alpha);
+    }`
+});
+
+const card = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 3.5, 1, 1), cardMat);
+scene.add(card);
+
+// Soft contact shadow that slides opposite to the tilt.
+const shadow = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 4.6), new THREE.ShaderMaterial({
+  transparent: true, depthWrite: false,
+  vertexShader: `varying vec2 vUv; void main(){ vUv=uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,
+  fragmentShader: `varying vec2 vUv; void main(){ vec2 p=(vUv-0.5)*2.0; float r=length(p*vec2(1.0,0.78)); float a=smoothstep(1.0,0.35,r)*0.6; gl_FragColor=vec4(0.0,0.0,0.0,a);}`
+}));
+shadow.position.z = -0.6;
+scene.add(shadow);
+
+// Interaction
+const target = new THREE.Vector2(0, 0); // normalized pointer, -1..1
+let lastInput = -1e9, dragging = false;
+function setFromEvent(e){
+  const r = canvas.getBoundingClientRect();
+  target.set(((e.clientX - r.left)/r.width)*2 - 1, -(((e.clientY - r.top)/r.height)*2 - 1));
+  lastInput = performance.now();
+}
+canvas.addEventListener('pointermove', e => { if (e.pointerType === 'touch' && !dragging) return; setFromEvent(e); });
+canvas.addEventListener('pointerdown', e => { dragging = true; setFromEvent(e); });
+addEventListener('pointerup', () => dragging = false);
+
+const rot = new THREE.Vector2(0, 0);
+const MAX_X = 0.42, MAX_Y = 0.56; // radians ≈ ±24° / ±32°
+
+function resize(){
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w/h; camera.updateProjectionMatrix();
+  // keep the card a sensible size on phones
+  const s = w < 720 ? 0.78 : 1.0;
+  card.scale.setScalar(s); shadow.scale.setScalar(s);
+  card.position.x = w < 720 ? 0 : 0.9;
+  shadow.position.x = card.position.x;
+}
+addEventListener('resize', resize); resize();
+
+// CPU side of "what you see is what gets graded": the same scratch rule, evaluated here.
+const _N = new THREE.Vector3(), _T = new THREE.Vector3(), _P = new THREE.Vector3(), _V = new THREE.Vector3(), _L = new THREE.Vector3(), _H = new THREE.Vector3(), _axis = new THREE.Vector3(), _Bn = new THREE.Vector3(), _Ns = new THREE.Vector3();
+function scratchGlint(){
+  card.updateMatrixWorld();
+  const m = new THREE.Matrix3().setFromMatrix4(card.matrixWorld);
+  _N.set(0,0,1).applyMatrix3(m).normalize();
+  _T.set(1,0,0).applyMatrix3(m).normalize();
+  const mid = SCRATCH_A.clone().add(SCRATCH_B).multiplyScalar(0.5);
+  _P.set((mid.x-0.5)*2.5, (mid.y-0.5)*3.5, 0).applyMatrix4(card.matrixWorld);
+  _V.copy(camera.position).sub(_P).normalize();
+  _L.copy(LAMP).sub(_P).normalize();
+  _H.copy(_L).add(_V).normalize();
+  const a2 = SCRATCH_B.clone().sub(SCRATCH_A).normalize();
+  const Bt = new THREE.Vector3().crossVectors(_N, _T);
+  _axis.copy(_T).multiplyScalar(a2.x).addScaledVector(Bt, a2.y).normalize();
+  _Bn.crossVectors(_N, _axis).normalize();
+  _Ns.copy(_N).multiplyScalar(Math.cos(SCRATCH_TILT)).addScaledVector(_Bn, Math.sin(SCRATCH_TILT)).normalize();
+  return Math.pow(Math.max(_Ns.dot(_H), 0), 320);
+}
+
+let t0 = performance.now();
+function frame(now){
+  const t = (now - t0) / 1000;
+  const idle = now - lastInput > 2600;
+  let tx = target.x, ty = target.y;
+  if (idle && !reduce){ tx = Math.sin(t*0.45)*0.55; ty = Math.sin(t*0.31 + 1.2)*0.45; }
+  if (reduce && idle){ tx = 0.35; ty = 0.15; }
+  rot.x += ((-ty*MAX_X) - rot.x) * 0.08;
+  rot.y += (( tx*MAX_Y) - rot.y) * 0.08;
+  card.rotation.set(rot.x, rot.y, 0);
+  shadow.position.set(card.position.x - rot.y*0.35, -rot.x*0.35 - 0.05, -0.6);
+  cardMat.uniforms.uTime.value = t;
+  flawTag.classList.toggle('on', scratchGlint() > 0.35);
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
