@@ -303,7 +303,7 @@ const cardMat = new THREE.ShaderMaterial({
       // the scratch: a micro-facet tilted about the scratch axis; lights up only near one angle
       float t; float sd = segDist(vUv, uA, uB, t);
       // a real hairline: sub-pixel thin, broken along its length, uneven in depth
-      float wear = 0.55 + 0.45*sin(t*61.0 + 1.3) * sin(t*23.0);        // breaks and thin spots
+      float wear = 0.5 + 0.5*sin(t*61.0 + 1.3) * sin(t*23.0 + 0.7) * (0.6 + 0.4*sin(t*137.0 + 2.1));   // irregular breaks
       float wobble = 0.0007 + 0.0005*wear;
       float core = (1.0 - smoothstep(wobble*0.6, wobble*1.6, sd)) * smoothstep(0.15, 0.55, wear);
       float halo = (1.0 - smoothstep(wobble*1.6, wobble*3.5, sd)) * 0.5;
@@ -327,14 +327,6 @@ const cardMat = new THREE.ShaderMaterial({
 const card = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 3.5, 1, 1), cardMat);
 scene.add(card);
 
-// Soft contact shadow that slides opposite to the tilt.
-const shadow = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 4.6), new THREE.ShaderMaterial({
-  transparent: true, depthWrite: false,
-  vertexShader: `varying vec2 vUv; void main(){ vUv=uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0);}`,
-  fragmentShader: `varying vec2 vUv; void main(){ vec2 p=(vUv-0.5)*2.0; float r=length(p*vec2(1.0,0.78)); float a=smoothstep(1.0,0.35,r)*0.6; gl_FragColor=vec4(0.0,0.0,0.0,a);}`
-}));
-shadow.position.z = -0.6;
-scene.add(shadow);
 
 // Interaction
 const target = new THREE.Vector2(0, 0); // normalized pointer, -1..1
@@ -357,9 +349,8 @@ function resize(){
   camera.aspect = w/h; camera.updateProjectionMatrix();
   // keep the card a sensible size on phones
   const s = w < 720 ? 0.78 : 1.0;
-  card.scale.setScalar(s); shadow.scale.setScalar(s);
+  card.scale.setScalar(s);
   card.position.x = w < 720 ? 0 : 0.9;
-  shadow.position.x = card.position.x;
 }
 addEventListener('resize', resize); resize();
 
@@ -394,7 +385,6 @@ function frame(now){
   rot.x += ((-ty*MAX_X) - rot.x) * 0.08;
   rot.y += (( tx*MAX_Y) - rot.y) * 0.08;
   card.rotation.set(rot.x, rot.y, 0);
-  shadow.position.set(card.position.x - rot.y*0.35, -rot.x*0.35 - 0.05, -0.6);
   cardMat.uniforms.uTime.value = t;
   flawTag.classList.toggle('on', scratchGlint() > 0.30);
   renderer.render(scene, camera);
