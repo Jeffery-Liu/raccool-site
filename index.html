@@ -308,9 +308,10 @@ const cardMat = new THREE.ShaderMaterial({
       vec3 axisW = normalize(mat3(vT, cross(N, vT), N) * axis);
       vec3 Bn = normalize(cross(N, axisW));
       vec3 Ns = normalize(N*cos(uTilt) + Bn*sin(uTilt));
-      float glint = pow(max(dot(Ns,H),0.0), 320.0);
+      float nh = max(dot(Ns,H),0.0);
+      float glint = 0.55*pow(nh, 90.0) + 0.45*pow(nh, 900.0);   // broad rise, small sharp peak
       float ends = smoothstep(0.0,0.08,t) * smoothstep(1.0,0.92,t);
-      col += vec3(1.0,0.96,0.88) * glint * ends * (core*0.85 + halo*0.12);
+      col += vec3(1.0,0.96,0.88) * glint * ends * (core*0.45 + halo*0.08);
 
       // edge darkening
       col *= 1.0 - 0.18*smoothstep(-0.03, 0.0, d);
@@ -374,7 +375,8 @@ function scratchGlint(){
   _axis.copy(_T).multiplyScalar(a2.x).addScaledVector(Bt, a2.y).normalize();
   _Bn.crossVectors(_N, _axis).normalize();
   _Ns.copy(_N).multiplyScalar(Math.cos(SCRATCH_TILT)).addScaledVector(_Bn, Math.sin(SCRATCH_TILT)).normalize();
-  return Math.pow(Math.max(_Ns.dot(_H), 0), 320);
+  const nh = Math.max(_Ns.dot(_H), 0);
+  return 0.55*Math.pow(nh, 90) + 0.45*Math.pow(nh, 900);
 }
 
 let t0 = performance.now();
@@ -389,7 +391,7 @@ function frame(now){
   card.rotation.set(rot.x, rot.y, 0);
   shadow.position.set(card.position.x - rot.y*0.35, -rot.x*0.35 - 0.05, -0.6);
   cardMat.uniforms.uTime.value = t;
-  flawTag.classList.toggle('on', scratchGlint() > 0.35);
+  flawTag.classList.toggle('on', scratchGlint() > 0.30);
   renderer.render(scene, camera);
   requestAnimationFrame(frame);
 }
