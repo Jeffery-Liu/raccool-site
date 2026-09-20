@@ -302,8 +302,11 @@ const cardMat = new THREE.ShaderMaterial({
 
       // the scratch: a micro-facet tilted about the scratch axis; lights up only near one angle
       float t; float sd = segDist(vUv, uA, uB, t);
-      float core = 1.0 - smoothstep(0.0010, 0.0024, sd);
-      float halo = 1.0 - smoothstep(0.0024, 0.0060, sd);
+      // a real hairline: sub-pixel thin, broken along its length, uneven in depth
+      float wear = 0.55 + 0.45*sin(t*61.0 + 1.3) * sin(t*23.0);        // breaks and thin spots
+      float wobble = 0.0007 + 0.0005*wear;
+      float core = (1.0 - smoothstep(wobble*0.6, wobble*1.6, sd)) * smoothstep(0.15, 0.55, wear);
+      float halo = (1.0 - smoothstep(wobble*1.6, wobble*3.5, sd)) * 0.5;
       vec3 axis = normalize(vec3(uB - uA, 0.0));
       vec3 axisW = normalize(mat3(vT, cross(N, vT), N) * axis);
       vec3 Bn = normalize(cross(N, axisW));
@@ -311,7 +314,9 @@ const cardMat = new THREE.ShaderMaterial({
       float nh = max(dot(Ns,H),0.0);
       float glint = 0.55*pow(nh, 90.0) + 0.45*pow(nh, 900.0);   // broad rise, small sharp peak
       float ends = smoothstep(0.0,0.08,t) * smoothstep(1.0,0.92,t);
-      col += vec3(1.0,0.96,0.88) * glint * ends * (core*0.45 + halo*0.08);
+      // never brighter than the foil highlight around it: it is that highlight, interrupted
+      float cap = 0.22 + 0.18*band*inArt;
+      col += vec3(1.0,0.96,0.88) * min(glint * ends * (core*0.6 + halo*0.05), cap);
 
       // edge darkening
       col *= 1.0 - 0.18*smoothstep(-0.03, 0.0, d);
