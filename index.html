@@ -134,6 +134,7 @@ footer .fine{font-family:var(--mono);font-size:11px;color:var(--taupe);letter-sp
       <div class="actions">
         <a class="btn primary" href="#" data-todo="steam">Wishlist on Steam</a>
         <a class="btn" href="#game">What is it?</a>
+        <a class="btn" href="https://discord.gg/XxAbsrMjBB" target="_blank" rel="noopener">Join the Discord</a>
       </div>
     </div>
     <div class="hero-side">
@@ -219,7 +220,7 @@ footer .fine{font-family:var(--mono);font-size:11px;color:var(--taupe);letter-sp
     <div class="links">
       <a href="mailto:contact@raccool.ca">contact@raccool.ca</a>
       <a href="#" data-todo="steam">Steam</a>
-      <a href="#" data-todo="discord">Discord</a>
+      <a href="https://discord.gg/XxAbsrMjBB" target="_blank" rel="noopener">Discord</a>
     </div>
     <div class="fine">© 2026 RACCOOL Interactive Inc.<br>Surrey, British Columbia, Canada</div>
   </div>
@@ -230,6 +231,14 @@ footer .fine{font-family:var(--mono);font-size:11px;color:var(--taupe);letter-sp
 document.querySelectorAll('.pillar').forEach(el=>{
   el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px');});
 });
+
+// Steam page isn't live yet — acknowledge the click instead of a dead jump to top.
+document.querySelectorAll('[data-todo="steam"]').forEach(b=>b.addEventListener('click',e=>{
+  e.preventDefault();
+  if(b.dataset.busy)return; b.dataset.busy=1;
+  const t=b.textContent; b.textContent='Coming soon';
+  setTimeout(()=>{b.textContent=t;delete b.dataset.busy;},1600);
+}));
 </script>
 
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
