@@ -31,12 +31,14 @@
 :root, :root[data-theme="dark"]{
   --ink:#131313; --desk:#0f1113; --desk-2:#1b1d20; --panel:#181a1d; --line:#2a2d31;
   --bone:#EDE4D6; --bone-2:#cfc6b8; --taupe:#9B8E7E; --accent:#B5786C; --accent-hover:#c4877b; --lamp:#F0C98C;
+  --card-shadow:0 20px 50px rgba(0,0,0,.45);
   color-scheme:dark;
 }
 /* Palette 01 — Northern · light grounds (burnt orange on bone). Paired to ground, never mixed. */
 :root[data-theme="light"]{
   --ink:#EDE4D6; --desk:#E4D8C6; --desk-2:#F2EADD; --panel:#F4EEE3; --line:#D9CEBC;
   --bone:#131313; --bone-2:#5B544B; --taupe:#827B73; --accent:#C96A24; --accent-hover:#AE5A1E; --lamp:#C96A24;
+  --card-shadow:0 26px 48px rgba(52,34,20,.34);
   color-scheme:light;
 }
 *{box-sizing:border-box}
@@ -77,7 +79,7 @@ nav ul a:hover{color:var(--bone)}
 #hero{position:relative;height:100svh;min-height:600px;overflow:hidden;background:
   radial-gradient(55% 50% at 60% 30%, color-mix(in srgb,var(--lamp) 14%,transparent), transparent 70%),
   radial-gradient(120% 80% at 50% 110%, var(--desk-2), var(--desk) 60%)}
-#hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;filter:drop-shadow(var(--card-shadow))}
 .hero-copy{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(28px,6vh,64px);display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;pointer-events:none}
 .hero-copy>*{pointer-events:auto}
 .hero-copy h1{font-size:clamp(64px,12vw,150px);text-transform:uppercase;line-height:.85;color:var(--bone)}
@@ -263,6 +265,7 @@ footer .fine{font-family:var(--mono);font-size:11px;color:var(--taupe);letter-sp
     var fav=document.getElementById('favicon'); if(fav) fav.href='assets/raccool-mark'+suffix+'.svg';
     var btn=document.querySelector('.theme-toggle');
     if(btn) btn.setAttribute('aria-label', t==='light'?'Switch to dark theme':'Switch to light theme');
+    try{window.dispatchEvent(new CustomEvent('raccool-theme',{detail:t}));}catch(e){}
   }
   apply(document.documentElement.dataset.theme==='light'?'light':'dark');
   var btn=document.querySelector('.theme-toggle');
@@ -314,6 +317,7 @@ const cardMat = new THREE.ShaderMaterial({
   uniforms: {
     map: {value: tex}, uLamp: {value: LAMP}, uTime: {value: 0},
     uA: {value: SCRATCH_A}, uB: {value: SCRATCH_B}, uTilt: {value: SCRATCH_TILT},
+    uLight: {value: document.documentElement.dataset.theme === 'light' ? 1 : 0},
   },
   vertexShader: `
     varying vec2 vUv; varying vec3 vN; varying vec3 vP; varying vec3 vT;
@@ -327,7 +331,7 @@ const cardMat = new THREE.ShaderMaterial({
   fragmentShader: `
     precision highp float;
     uniform sampler2D map; uniform vec3 uLamp; uniform float uTime;
-    uniform vec2 uA, uB; uniform float uTilt;
+    uniform vec2 uA, uB; uniform float uTilt; uniform float uLight;
     varying vec2 vUv; varying vec3 vN; varying vec3 vP; varying vec3 vT;
 
     float sdRoundRect(vec2 p, vec2 b, float r){ vec2 q = abs(p)-b+r; return length(max(q,0.0)) + min(max(q.x,q.y),0.0) - r; }
@@ -340,7 +344,14 @@ const cardMat = new THREE.ShaderMaterial({
       float alpha = 1.0 - smoothstep(-0.004, 0.0, d);
       if (alpha <= 0.001) discard;
 
-      vec3 base = vec3(0.075, 0.078, 0.082);   // dark card stock
+      // art window mask (holo lives here)
+      vec2 artMask = step(vec2(0.065,0.395), vUv) * step(vUv, vec2(0.935,0.885));
+      float inArt = artMask.x*artMask.y;
+      // card stock: dark slab (Palette 02) or a warm daylight card (Palette 01)
+      vec3 base = mix(vec3(0.075,0.078,0.082), vec3(0.90,0.86,0.78), uLight);
+      // in light mode, the art window is a warm sand panel — same family as the card, just a step
+      // deeper — so it never reads as a dark hole; the holo floats on it as soft pastel.
+      base = mix(base, vec3(0.70,0.64,0.55), inArt*uLight*0.9);
       vec3 N = normalize(vN);
       vec3 V = normalize(cameraPosition - vP);
       vec3 L = normalize(uLamp - vP);
@@ -351,10 +362,12 @@ const cardMat = new THREE.ShaderMaterial({
       // paper + varnish
       vec3 col = base * (0.55 + 0.55*NdL);
       col += vec3(1.0,0.93,0.82) * pow(max(dot(N,H),0.0), 48.0) * 0.10;
+      // warm lamp rim along the silhouette: softens the hard edge so the dark slab sits on a
+      // light ground instead of reading as a flat black cut-out.
+      float rim = pow(1.0 - NdV, 3.0);
+      col += vec3(1.0,0.84,0.66) * rim * 0.11;
 
-      // holographic foil inside the art window
-      vec2 art = step(vec2(0.065,0.395), vUv) * step(vUv, vec2(0.935,0.885));
-      float inArt = art.x*art.y;
+      // holographic foil inside the art window (mask computed above)
       // the band sweeps across the face as the card tilts: it follows the reflection direction
       vec3 R = reflect(-V, N);
       float sweep = R.x*1.6 + R.y*1.2 + uTime*0.01;                 // where the band sits (moves with tilt)
@@ -362,7 +375,7 @@ const cardMat = new THREE.ShaderMaterial({
       float band  = smoothstep(0.34, 0.0, abs(fract(sweep*0.8 + vUv.x*0.5 - vUv.y*0.35)-0.5) - 0.10);
       float streak = 0.75 + 0.25*sin((vUv.x - vUv.y)*70.0 + R.x*12.0);  // diagonal foil striations
       vec3 iri = mix(rainbow(hue), vec3(1.0), 0.35);
-      col += iri * band * streak * inArt * (0.16 + 0.20*pow(1.0-NdV, 1.5));
+      col += iri * band * streak * inArt * (0.16 + 0.20*pow(1.0-NdV, 1.5)) * (1.0 + 0.9*uLight);
 
       // the scratch: a micro-facet tilted about the scratch axis; lights up only near one angle
       float t; float sd = segDist(vUv, uA, uB, t);
@@ -390,6 +403,9 @@ const cardMat = new THREE.ShaderMaterial({
 
 const card = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 3.5, 1, 1), cardMat);
 scene.add(card);
+
+// Light theme shows the card as a warm daylight card; dark theme keeps the dark slab.
+addEventListener('raccool-theme', e => { cardMat.uniforms.uLight.value = (e.detail === 'light') ? 1 : 0; });
 
 
 // Interaction
