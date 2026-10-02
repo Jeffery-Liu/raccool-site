@@ -59,6 +59,23 @@ guidelines say it "must be followed, not corrected".
 - Semantic colours (error, success) are not brand colours; when needed use `#B23A2E` (error) and
   `#3F7D5A` (success), never the accent.
 
+### Theme switching (web)
+
+The website carries **both** palettes as a light/dark theme and lets each visitor choose.
+
+- **Light theme = Palette 01 (Northern)**, **dark theme = Palette 02 (Albino)**. The whole palette
+  swaps together — never mixed. Every surface, the logo, and the hero card re-theme as one.
+- **Per-viewer, client-side only.** The choice lives in the visitor's own browser
+  (`localStorage`) and defaults to their OS `prefers-color-scheme`. It is set before first paint,
+  so there is no flash. One visitor switching **never** changes what anyone else sees — there is no
+  shared or server state.
+- **Logo follows the theme:** bone + rose on dark grounds, charcoal + burnt orange on light. With
+  JavaScript off, the site falls back to the dark theme and the dark (bone) logo — consistent, never
+  a mismatched pairing.
+- **The product/hero card follows the theme too:** a dark graded slab on dark grounds; a warm
+  daylight card (bone stock, warm-sand window, soft pastel holo) on light grounds. Same object,
+  lit by its ground — not a recolour of the brand.
+
 ## 3. Logo
 
 Files: `Logo/Final/files_polished/*.svg` — the only approved set (names match the PDF File Index). The SVGs in the `Logo/Final/` root and `Logo/Final/files/` are earlier iterations; do not use them.
