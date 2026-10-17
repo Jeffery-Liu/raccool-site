@@ -10,6 +10,7 @@ One static page: `index.html` + `assets/`. No build step, no server code, no fra
 | `assets/card-pyrodon.jpg` | Card face used by the 3D hero (perspective-corrected from the desk render) |
 | `assets/desk.jpg`, `office.jpg`, `hearing.jpg` | Gallery images (concept renders) |
 | `assets/foil.jpg`, `two-angles.jpg`, `capsule.jpg` | Spare images; `capsule.jpg` is the social-share preview (`og:image`) |
+| `robots.txt`, `sitemap.xml` | Crawl rules and the URL list for search engines |
 | `assets/raccool-*.svg` | Logo mark and lockup — the `-dark` files from `Logo/Final/files_polished/` (Palette 02); the SVGs in `Logo/Final/` root are superseded |
 
 ## Preview locally
@@ -38,6 +39,17 @@ Then open http://127.0.0.1:8765/ in Chrome. Stop the server with Ctrl+C.
    turns green.
 
 Every later change is just: edit `index.html` → commit → the site updates itself.
+
+## Domains and search
+
+- `raccool.ca` is the only site. `CNAME` points GitHub Pages at it; DNS lives at the registrar.
+- `raccoolinteractive.com` (Cloudflare Registrar) does not host anything: a Cloudflare Redirect Rule
+  sends every URL on it, and on `www.`, to `https://raccool.ca/` with a 301.
+- `robots.txt` and `sitemap.xml` are at the root. Update `<lastmod>` in `sitemap.xml` after a
+  substantial content change.
+- The `<head>` of `index.html` carries Organization / WebSite / VideoGame structured data (JSON-LD).
+  Add each new official profile (Steam page, LinkedIn, X, YouTube…) to `sameAs` when it exists.
+- `dc/` and `discord/` are `noindex` redirect pages; keep them out of the sitemap.
 
 ## Before you publish — things still marked TODO
 
