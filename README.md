@@ -42,7 +42,9 @@ Every later change is just: edit `index.html` → commit → the site updates it
 
 ## Domains and search
 
-- `raccool.ca` is the only site. `CNAME` points GitHub Pages at it; DNS lives at the registrar.
+- `raccool.ca` is the only site. `CNAME` points GitHub Pages at it; DNS lives in Cloudflare
+  (records are DNS-only, not proxied). Google Search Console is verified via a
+  `google-site-verification` TXT record there — don't delete it.
 - `raccoolinteractive.com` (Cloudflare Registrar) does not host anything: a Cloudflare Redirect Rule
   sends every URL on it, and on `www.`, to `https://raccool.ca/` with a 301.
 - `robots.txt` and `sitemap.xml` are at the root. Update `<lastmod>` in `sitemap.xml` after a
@@ -50,6 +52,10 @@ Every later change is just: edit `index.html` → commit → the site updates it
 - The `<head>` of `index.html` carries Organization / WebSite / VideoGame structured data (JSON-LD).
   Add each new official profile (Steam page, LinkedIn, X, YouTube…) to `sameAs` when it exists.
 - `dc/` and `discord/` are `noindex` redirect pages; keep them out of the sitemap.
+- `privacy/` is the privacy policy (linked from the footer, listed in the sitemap). If you add a
+  service that receives visitor data (a form, newsletter, another analytics tool), update it.
+- Visit stats: Cloudflare Web Analytics (cookieless). The beacon `<script>` sits just before
+  `</body>` in `index.html` and `privacy/index.html`; add it to any new page.
 
 ## Before you publish — things still marked TODO
 
