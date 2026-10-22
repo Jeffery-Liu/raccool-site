@@ -9,13 +9,13 @@
   (function(){try{var t=localStorage.getItem('raccool-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme='dark';}})();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>RACCOOL Interactive Inc. — Indie Game Studio in Surrey, B.C. | SLABBED</title>
-<meta name="description" content="RACCOOL Interactive Inc. (Raccool Interactive) is an independent game studio in Surrey, British Columbia. Our first title, SLABBED: TCG Card Grader, is a document-thriller about tilting cards under a lamp and deciding what they really are.">
+<title>RACCOOL Interactive Inc. — SLABBED: Card Grader</title>
+<meta name="description" content="RACCOOL Interactive Inc. (Raccool Interactive) is an independent game studio in Surrey, British Columbia. Our first title, SLABBED: Card Grader, is a document-thriller about tilting cards under a lamp and deciding what they really are.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://raccool.ca/">
 <meta property="og:site_name" content="RACCOOL Interactive">
-<meta property="og:title" content="RACCOOL Interactive Inc. — SLABBED: TCG Card Grader">
-<meta property="og:description" content="RACCOOL Interactive Inc. is an independent game studio based in Surrey, British Columbia, Canada. Our first title is SLABBED: TCG Card Grader.">
+<meta property="og:title" content="RACCOOL Interactive Inc. — SLABBED: Card Grader">
+<meta property="og:description" content="RACCOOL Interactive Inc. is an independent game studio based in Surrey, British Columbia, Canada. Our first title is SLABBED: Card Grader.">
 <meta property="og:image" content="https://raccool.ca/assets/capsule.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://raccool.ca/">
@@ -29,7 +29,7 @@
       "name": "RACCOOL Interactive Inc.",
       "legalName": "RACCOOL Interactive Inc.",
       "alternateName": ["RACCOOL Interactive", "Raccool Interactive", "Raccool", "RACCOOL"],
-      "description": "RACCOOL Interactive Inc. is an independent game studio founded in 2026 and based in Surrey, British Columbia, Canada. Our first title is SLABBED: TCG Card Grader.",
+      "description": "RACCOOL Interactive Inc. is an independent game studio founded in 2026 and based in Surrey, British Columbia, Canada. Our first title is SLABBED: Card Grader.",
       "url": "https://raccool.ca/",
       "logo": "https://raccool.ca/assets/raccool-lockup-dark.svg",
       "email": "contact@raccool.ca",
@@ -51,8 +51,9 @@
     },
     {
       "@type": "VideoGame",
-      "name": "SLABBED: TCG Card Grader",
+      "name": "SLABBED: Card Grader",
       "url": "https://raccool.ca/",
+      "sameAs": ["https://store.steampowered.com/app/5462900/SLABBED_Card_Grader/"],
       "gamePlatform": ["PC", "Steam Deck"],
       "author": {"@id": "https://raccool.ca/#organization"},
       "publisher": {"@id": "https://raccool.ca/#organization"}
@@ -101,8 +102,6 @@ p{margin:0 0 1em;max-width:62ch}
 .btn:hover,.btn:focus-visible{background:var(--bone);color:var(--ink);outline:none}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.primary:hover,.btn.primary:focus-visible{background:var(--accent-hover);border-color:var(--accent-hover);color:#fff}
-.btn[data-todo]{position:relative}
-.btn[data-todo]::after{content:"";position:absolute;inset:-1px;border:1px dashed color-mix(in srgb,var(--lamp) 35%,transparent);border-radius:4px;pointer-events:none}
 
 /* nav */
 nav{position:fixed;inset:0 0 auto 0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top,0px)) var(--gutter) 14px;background:linear-gradient(color-mix(in srgb,var(--ink) 90%,transparent),transparent);pointer-events:none}
@@ -202,9 +201,9 @@ footer .fine{font-family:var(--mono);font-size:11px;color:var(--taupe);letter-sp
   <div id="flaw">Surface flaw — hairline scratch</div>
   <div class="hero-copy">
     <div>
-      <h1>Slabbed<small>TCG Card Grader</small></h1>
+      <h1 aria-label="SLABBED: Card Grader">Slabbed<small>Card Grader</small></h1>
       <div class="actions">
-        <a class="btn primary" href="#" data-todo="steam">Wishlist on Steam</a>
+        <a class="btn primary" href="https://store.steampowered.com/app/5462900/SLABBED_Card_Grader/" target="_blank" rel="noopener">Wishlist on Steam</a>
         <a class="btn" href="#game">What is it?</a>
         <a class="btn" href="https://discord.gg/XxAbsrMjBB" target="_blank" rel="noopener">Join the Discord</a>
       </div>
@@ -274,7 +273,7 @@ footer .fine{font-family:var(--mono);font-size:11px;color:var(--taupe);letter-sp
       </div>
     </div>
     <div>
-      <p class="lede">RACCOOL Interactive Inc. is an independent game studio founded in 2026 and based in Surrey, British Columbia, Canada. Our first title is SLABBED: TCG Card Grader.</p>
+      <p class="lede">RACCOOL Interactive Inc. is an independent game studio founded in 2026 and based in Surrey, British Columbia, Canada. Our first title is SLABBED: Card Grader.</p>
       <p>In SLABBED, the consequences of your judgment are recorded — and, eventually, read back to you. The game is design-complete and prototype-validated, with a vertical slice in production for December 2026 and a public demo planned for 2027.</p>
     </div>
   </div>
@@ -291,7 +290,7 @@ footer .fine{font-family:var(--mono);font-size:11px;color:var(--taupe);letter-sp
     <img data-logo="assets/raccool-lockup" src="assets/raccool-lockup-dark.svg" alt="RACCOOL Interactive Inc.">
     <div class="links" role="group" aria-label="Contact and official profiles">
       <a href="mailto:contact@raccool.ca">contact@raccool.ca</a>
-      <a href="#" data-todo="steam">Steam</a>
+      <a href="https://store.steampowered.com/app/5462900/SLABBED_Card_Grader/" target="_blank" rel="noopener">Steam</a>
       <a href="https://discord.gg/XxAbsrMjBB" target="_blank" rel="noopener">Discord</a>
       <a href="https://www.youtube.com/@Raccool-Interactive" target="_blank" rel="me noopener">YouTube</a>
       <a href="privacy/">Privacy</a>
@@ -324,13 +323,6 @@ document.querySelectorAll('.pillar').forEach(el=>{
   el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();el.style.setProperty('--mx',(e.clientX-r.left)+'px');el.style.setProperty('--my',(e.clientY-r.top)+'px');});
 });
 
-// Steam page isn't live yet — acknowledge the click instead of a dead jump to top.
-document.querySelectorAll('[data-todo="steam"]').forEach(b=>b.addEventListener('click',e=>{
-  e.preventDefault();
-  if(b.dataset.busy)return; b.dataset.busy=1;
-  const t=b.textContent; b.textContent='Coming soon';
-  setTimeout(()=>{b.textContent=t;delete b.dataset.busy;},1600);
-}));
 </script>
 
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>

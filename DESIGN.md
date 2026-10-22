@@ -136,7 +136,7 @@ Type scale (web): 12 · 13 · 15 · 17 · 19–23 (lede) · 26 (H3) · 40–72 (
   constant names). Say what is true, not which file records it.
 - No hype words ("revolutionary", "immersive", "next-gen"). No exclamation marks.
 - We say "we" for the studio and name the game as **SLABBED** (internal) or
-  **SLABBED: TCG Card Grader** (store-facing). The in-game company is **Burrard Card Grading
+  **SLABBED: Card Grader** (store-facing). The in-game company is **Burrard Card Grading
   (BCG)** — never PCG.
 - English is the working language of every published surface.
 

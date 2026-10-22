@@ -51,28 +51,24 @@ Every later change is just: edit `index.html` → commit → the site updates it
   substantial content change.
 - The `<head>` of `index.html` carries Organization / WebSite / VideoGame structured data (JSON-LD).
   Keep the Organization name, description, founder and location consistent with the visible studio
-  introduction and team cards. Add each verified official profile to both `sameAs` and the footer.
+  introduction and team cards. Add each verified company profile to the Organization `sameAs`
+  and the footer. Game store pages belong in the VideoGame `sameAs`, not the Organization.
   Confirm ownership before adding a profile; similarly named Raccoon companies are unrelated.
 - Official profiles verified on October 21, 2026:
   - YouTube: https://www.youtube.com/@Raccool-Interactive
     (channel ID `UCuxtjspCJx5pyDCa6y53F9g`; its About text names RACCOOL INTERACTIVE INC. and SLABBED).
   - Discord: https://discord.gg/XxAbsrMjBB (SLABBED server).
-  LinkedIn, Steam and other profiles have not yet been verified for this site.
+  No LinkedIn company page has been provided.
+- Steam game page verified on October 22, 2026:
+  https://store.steampowered.com/app/5462900/SLABBED_Card_Grader/
+  The public title is **SLABBED: Card Grader**; both developer and publisher are
+  **RACCOOL Interactive Inc.** The hero wishlist button and footer Steam link point here.
+  Keep the full game name consistent in the hero, studio copy, metadata and VideoGame data.
 - `dc/` and `discord/` are `noindex` redirect pages; keep them out of the sitemap.
 - `privacy/` is the privacy policy (linked from the footer, listed in the sitemap). If you add a
   service that receives visitor data (a form, newsletter, another analytics tool), update it.
 - Visit stats: Cloudflare Web Analytics (cookieless). The beacon `<script>` sits just before
   `</body>` in `index.html` and `privacy/index.html`; add it to any new page.
-
-## Before you publish — things still marked TODO
-
-Search `index.html` for `data-todo`. The two Steam links are placeholders (`href="#"`, drawn with a dashed
-outline so they are easy to spot):
-
-- **Wishlist on Steam** (hero button and footer) → the Steam store page URL once the
-  Coming Soon page is live.
-
-Remove the `data-todo` attribute when you fill in a real URL and the dashed outline disappears.
 
 ## Editing text
 
