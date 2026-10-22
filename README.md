@@ -50,7 +50,14 @@ Every later change is just: edit `index.html` → commit → the site updates it
 - `robots.txt` and `sitemap.xml` are at the root. Update `<lastmod>` in `sitemap.xml` after a
   substantial content change.
 - The `<head>` of `index.html` carries Organization / WebSite / VideoGame structured data (JSON-LD).
-  Add each new official profile (Steam page, LinkedIn, X, YouTube…) to `sameAs` when it exists.
+  Keep the Organization name, description, founder and location consistent with the visible studio
+  introduction and team cards. Add each verified official profile to both `sameAs` and the footer.
+  Confirm ownership before adding a profile; similarly named Raccoon companies are unrelated.
+- Official profiles verified on October 21, 2026:
+  - YouTube: https://www.youtube.com/@Raccool-Interactive
+    (channel ID `UCuxtjspCJx5pyDCa6y53F9g`; its About text names RACCOOL INTERACTIVE INC. and SLABBED).
+  - Discord: https://discord.gg/XxAbsrMjBB (SLABBED server).
+  LinkedIn, Steam and other profiles have not yet been verified for this site.
 - `dc/` and `discord/` are `noindex` redirect pages; keep them out of the sitemap.
 - `privacy/` is the privacy policy (linked from the footer, listed in the sitemap). If you add a
   service that receives visitor data (a form, newsletter, another analytics tool), update it.
@@ -59,12 +66,11 @@ Every later change is just: edit `index.html` → commit → the site updates it
 
 ## Before you publish — things still marked TODO
 
-Search `index.html` for `data-todo`. Two links are placeholders (`href="#"`, drawn with a dashed
+Search `index.html` for `data-todo`. The two Steam links are placeholders (`href="#"`, drawn with a dashed
 outline so they are easy to spot):
 
 - **Wishlist on Steam** (hero button and footer) → the Steam store page URL once the
   Coming Soon page is live.
-- **Discord** (footer) → the invite link.
 
 Remove the `data-todo` attribute when you fill in a real URL and the dashed outline disappears.
 

@@ -14,8 +14,8 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://raccool.ca/">
 <meta property="og:site_name" content="RACCOOL Interactive">
-<meta property="og:title" content="RACCOOL Interactive — SLABBED: TCG Card Grader">
-<meta property="og:description" content="Tilt the card. Find the flaw. Sign the grade. Live with it.">
+<meta property="og:title" content="RACCOOL Interactive Inc. — SLABBED: TCG Card Grader">
+<meta property="og:description" content="RACCOOL Interactive Inc. is an independent game studio based in Surrey, British Columbia, Canada. Our first title is SLABBED: TCG Card Grader.">
 <meta property="og:image" content="https://raccool.ca/assets/capsule.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://raccool.ca/">
@@ -29,12 +29,17 @@
       "name": "RACCOOL Interactive Inc.",
       "legalName": "RACCOOL Interactive Inc.",
       "alternateName": ["RACCOOL Interactive", "Raccool Interactive", "Raccool", "RACCOOL"],
+      "description": "RACCOOL Interactive Inc. is an independent game studio founded in 2026 and based in Surrey, British Columbia, Canada. Our first title is SLABBED: TCG Card Grader.",
       "url": "https://raccool.ca/",
       "logo": "https://raccool.ca/assets/raccool-lockup-dark.svg",
       "email": "contact@raccool.ca",
       "foundingDate": "2026",
+      "founder": {"@type": "Person", "name": "Jeffery (Jinfeng) Liu"},
       "address": {"@type": "PostalAddress", "addressLocality": "Surrey", "addressRegion": "BC", "addressCountry": "CA"},
-      "sameAs": ["https://discord.gg/XxAbsrMjBB"]
+      "sameAs": [
+        "https://www.youtube.com/@Raccool-Interactive",
+        "https://discord.gg/XxAbsrMjBB"
+      ]
     },
     {
       "@type": "WebSite",
@@ -169,9 +174,9 @@ section{padding-block:clamp(72px,10vw,140px)}
 .facts b{display:block;font-family:var(--display);font-size:34px;letter-spacing:0;color:var(--bone);font-weight:700;line-height:1;margin-bottom:6px}
 
 footer{border-top:1px solid var(--line);padding:56px 0 calc(40px + env(safe-area-inset-bottom,0px))}
-footer .wrap{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center}
+footer .wrap{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:28px;align-items:center}
 footer img{width:150px}
-footer .links{display:flex;gap:22px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+footer .links{display:flex;flex-wrap:wrap;gap:16px 22px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
 footer .links a{text-decoration:none;color:var(--bone-2)}
 footer .fine{font-family:var(--mono);font-size:11px;color:var(--taupe);letter-spacing:.06em;text-align:right}
 @media (max-width:860px){footer .wrap{grid-template-columns:1fr}footer .fine{text-align:left}}
@@ -269,8 +274,8 @@ footer .fine{font-family:var(--mono);font-size:11px;color:var(--taupe);letter-sp
       </div>
     </div>
     <div>
-      <p class="lede">The consequences of that judgment are recorded — and, eventually, read back to you.</p>
-      <p>SLABBED is our first title. It is design-complete and prototype-validated, with a vertical slice in production for December 2026 and a public demo planned for 2027.</p>
+      <p class="lede">RACCOOL Interactive Inc. is an independent game studio founded in 2026 and based in Surrey, British Columbia, Canada. Our first title is SLABBED: TCG Card Grader.</p>
+      <p>In SLABBED, the consequences of your judgment are recorded — and, eventually, read back to you. The game is design-complete and prototype-validated, with a vertical slice in production for December 2026 and a public demo planned for 2027.</p>
     </div>
   </div>
   <div class="wrap">
@@ -284,10 +289,11 @@ footer .fine{font-family:var(--mono);font-size:11px;color:var(--taupe);letter-sp
 <footer id="contact">
   <div class="wrap">
     <img data-logo="assets/raccool-lockup" src="assets/raccool-lockup-dark.svg" alt="RACCOOL Interactive Inc.">
-    <div class="links">
+    <div class="links" role="group" aria-label="Contact and official profiles">
       <a href="mailto:contact@raccool.ca">contact@raccool.ca</a>
       <a href="#" data-todo="steam">Steam</a>
       <a href="https://discord.gg/XxAbsrMjBB" target="_blank" rel="noopener">Discord</a>
+      <a href="https://www.youtube.com/@Raccool-Interactive" target="_blank" rel="me noopener">YouTube</a>
       <a href="privacy/">Privacy</a>
     </div>
     <div class="fine">© 2026 RACCOOL Interactive Inc.<br>Surrey, British Columbia, Canada</div>
