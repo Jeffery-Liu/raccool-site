@@ -64,6 +64,12 @@ Every later change is just: edit `index.html` → commit → the site updates it
   The public title is **SLABBED: Card Grader**; both developer and publisher are
   **RACCOOL Interactive Inc.** The hero wishlist button and footer Steam link point here.
   Keep the full game name consistent in the hero, studio copy, metadata and VideoGame data.
+- Current gameplay trailer (verified October 23, 2026):
+  https://www.youtube.com/watch?v=dsgODcNVBlY
+  **SLABBED: Card Grader - Gameplay Trailer 1**, 80 seconds, on the official RACCOOL channel.
+  The game section and gallery note link here; the VideoGame `trailer` data includes its public
+  title, thumbnail, upload date and duration. Update all three when replacing the trailer.
+  The footer YouTube link and Organization `sameAs` continue to identify the channel itself.
 - `dc/` and `discord/` are `noindex` redirect pages; keep them out of the sitemap.
 - `privacy/` is the privacy policy (linked from the footer, listed in the sitemap). If you add a
   service that receives visitor data (a form, newsletter, another analytics tool), update it.
