@@ -17,6 +17,9 @@
 <meta property="og:title" content="RACCOOL Interactive Inc. — SLABBED: Card Grader">
 <meta property="og:description" content="Inspect trading cards, sign your verdict and face pressure to compromise. SLABBED: Card Grader is a card-grading simulation and narrative thriller with multiple endings, developed by RACCOOL Interactive Inc.">
 <meta property="og:image" content="https://raccool.ca/assets/capsule.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="688">
+<meta property="og:image:alt" content="SLABBED: Card Grader key art with the Nine-Tail of Azure Hill card">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://raccool.ca/">
 <script type="application/ld+json">
@@ -139,9 +142,10 @@ nav ul a:hover{color:var(--bone)}
 .hero-copy{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(28px,6vh,64px);display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px;pointer-events:none}
 .hero-copy>*{pointer-events:auto}
 .hero-copy h1{font-size:clamp(64px,12vw,150px);text-transform:uppercase;line-height:.85;color:var(--bone)}
-.hero-copy h1 small{display:block;font-size:.28em;font-weight:500;letter-spacing:.12em;color:var(--lamp);margin-top:10px}
-/* light: orange subtitle fails AA on the light hero ground */
-:root[data-theme="light"] .hero-copy h1 small{color:var(--bone-2)}
+/* official game logo; light theme uses the dark-lettered export (cream lettering vanishes on light ground) */
+.game-logo{display:block;width:clamp(280px,44vw,620px);height:auto}
+.logo-light,:root[data-theme="light"] .logo-dark{display:none}
+:root[data-theme="light"] .logo-light{display:block}
 :root[data-theme="light"] .person .role,:root[data-theme="light"] .pillar .n{color:var(--taupe)}
 .hero-copy .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
 .hero-side{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);text-align:right;max-width:240px;line-height:1.7}
@@ -172,6 +176,7 @@ section{padding-block:clamp(72px,10vw,140px)}
 .gallery{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;gap:14px;margin-top:40px}
 .gallery figure{margin:0;position:relative;overflow:hidden;border-radius:6px;border:1px solid var(--line);background:var(--panel)}
 .gallery figure:first-child{grid-row:span 2}
+.gallery a{display:block;height:100%}
 .gallery img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/9;transition:transform .6s ease}
 .gallery figure:first-child img{aspect-ratio:auto;height:100%}
 .gallery figure:hover img{transform:scale(1.025)}
@@ -218,7 +223,7 @@ footer .fine{font-family:var(--mono);font-size:11px;color:var(--taupe);letter-sp
   <div id="flaw">Surface flaw — hairline scratch</div>
   <div class="hero-copy">
     <div>
-      <h1 aria-label="SLABBED: Card Grader">Slabbed<small>Card Grader</small></h1>
+      <h1><img class="game-logo logo-dark" src="assets/slabbed-logo-dark.png" alt="SLABBED: Card Grader" width="1400" height="371"><img class="game-logo logo-light" src="assets/slabbed-logo-light.png" alt="SLABBED: Card Grader" width="1400" height="371"></h1>
       <div class="actions">
         <a class="btn primary" href="https://store.steampowered.com/app/5462900/SLABBED_Card_Grader/" target="_blank" rel="noopener">Wishlist on Steam</a>
         <a class="btn" href="#game">What is it?</a>
@@ -270,11 +275,11 @@ footer .fine{font-family:var(--mono);font-size:11px;color:var(--taupe);letter-sp
     <div class="eyebrow">World &amp; gameplay</div>
     <h2>Burrard Card Grading, Vancouver.</h2>
     <div class="gallery">
-      <figure><img src="assets/overgrading-review.jpg" alt="Correctness report in the current Unity build: the player signed a 7, the card scores 2, and the review fails because writing on the front caps the grade" loading="lazy"><figcaption>Correctness report — current build</figcaption></figure>
-      <figure><img src="assets/office.jpg" alt="Concept art of a small grading office in Vancouver on a rainy evening" loading="lazy"><figcaption>Vancouver office — concept art</figcaption></figure>
-      <figure><img src="assets/batch-review.png" alt="Batch-review screen showing four assessed cards before sealing in the current Unity build" loading="lazy"><figcaption>Batch review — current build</figcaption></figure>
+      <figure><a href="assets/overgrading-review.jpg"><img src="assets/overgrading-review.jpg" alt="Correctness report in the current Unity build: the player signed a 7, the card scores 2, and the review fails because writing on the front caps the grade" loading="lazy"></a><figcaption>Correctness report — current build</figcaption></figure>
+      <figure><a href="assets/loupe-inspection.jpg"><img src="assets/loupe-inspection.jpg" alt="Loupe inspection in the current Unity build: the loupe magnifies pen writing on the Nine-Tail of Azure Hill card, with the light, side light, loupe and ruler tools below" loading="lazy"></a><figcaption>Loupe inspection — current build</figcaption></figure>
+      <figure><a href="assets/office.jpg"><img src="assets/office.jpg" alt="Concept art of a small grading office in Vancouver on a rainy evening" loading="lazy"></a><figcaption>Vancouver office — concept art</figcaption></figure>
     </div>
-    <div class="note">The office image is concept art. The correctness report and batch review are captured from the current Unity build. <a href="https://www.youtube.com/watch?v=dsgODcNVBlY" target="_blank" rel="noopener">Watch the gameplay trailer</a> for more footage from the game in development.</div>
+    <div class="note">The office image is concept art. The correctness report and loupe inspection are captured from the current Unity build. <a href="https://www.youtube.com/watch?v=dsgODcNVBlY" target="_blank" rel="noopener">Watch the gameplay trailer</a> for more footage from the game in development.</div>
   </div>
 </section>
 

@@ -7,10 +7,9 @@ One static page: `index.html` + `assets/`. No build step, no server code, no fra
 | Path | What |
 |---|---|
 | `index.html` | The whole site — HTML, CSS and the three.js card hero in one file |
-| `assets/card-pyrodon.jpg` | Card face used by the 3D hero (perspective-corrected from the desk render) |
-| `assets/overgrading-review.jpg`, `office.jpg`, `batch-review.png` | Gallery: in-game correctness report (main), office concept art, batch review; `hearing.jpg` is retained as an unused historical asset |
-| `assets/batch-review.png` | Current Unity batch-review screenshot; replaces the hearing image in the public gallery |
-| `assets/foil.jpg`, `two-angles.jpg`, `capsule.jpg` | Spare images; `capsule.jpg` is the social-share preview (`og:image`) |
+| `assets/overgrading-review.jpg`, `loupe-inspection.jpg`, `office.jpg` | Gallery: in-game correctness report (main, cropped), loupe inspection (current build), office concept art. Each opens full size on click |
+| `assets/slabbed-logo-dark.png`, `slabbed-logo-light.png` | Hero title: the official SLABBED logo (v11) and its on-light variant — see DESIGN.md §7 |
+| `assets/capsule.jpg` | Social-share preview (`og:image`, 1200 × 688), made from `Steam/Steam Capsules/Main_Capsule_1232x706.png` |
 | `robots.txt`, `sitemap.xml` | Crawl rules and the URL list for search engines |
 | `assets/raccool-*.svg` | Logo mark and lockup — the `-dark` files from `Logo/Final/files_polished/` (Palette 02); the SVGs in `Logo/Final/` root are superseded |
 
@@ -99,13 +98,13 @@ document names, budget details or funding-application commentary to public pages
 
 - Replace a gallery image by overwriting the file in `assets/` with the same name, 1600 px wide,
   JPEG quality ~85. Keep each under ~450 KB.
-- Label each image accurately. The desk and office gallery images remain concept art;
-  `batch-review.png` is an unaltered runtime screenshot from 23 October 2026. Keep the gallery note
-  explicit about the mixed sources. Do not restore the hearing image: its binder reveals a fixed
+- Label each image accurately. `office.jpg` is concept art; `overgrading-review.jpg` and
+  `loupe-inspection.jpg` are unaltered runtime captures from the Steam screenshot set
+  (`Steam/In-game Screenshots/Final/07_…` cropped, `03_…`). Keep the gallery note explicit about the
+  mixed sources. Do not restore the hearing image: its binder reveals a fixed
   campaign length. Do not edit game UI to fabricate progress evidence.
-- The hero card face is `assets/card-pyrodon.jpg` (640 × 896). To use a different card, export the
-  card art straight-on at the same size and overwrite the file. If the new card has a baked-in
-  scratch in a different place, update `SCRATCH_A` / `SCRATCH_B` (UV coordinates, 0–1, origin
+- The hero card has no face texture (a black card with foil and a hairline scratch). If you add
+  card art, load it into `tex` and, if the scratch moves, update `SCRATCH_A` / `SCRATCH_B` (UV coordinates, 0–1, origin
   bottom-left) near the top of the `<script type="module">` block.
 
 ## How the card hero works (for whoever edits it later)

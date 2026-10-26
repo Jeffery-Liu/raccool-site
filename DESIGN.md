@@ -156,6 +156,21 @@ Fluorescent-lit realism: muted, grounded, slightly worn. The card is the only th
 be glossy. The UI is paperwork — forms, slips, ledgers — rendered as objects on the desk, not as
 floating panels.
 
+### SLABBED game logo on the web
+
+Source: `Steam/Game Logo/SLABBED_Card_Grader_Logo_Transparent_4096_v11.png` (the logo used on
+Steam and in the pitch deck). Its colours are the game's brand, not the studio's: charcoal
+`#171E21`, teal `#91C5C2` / `#547879`, ivory `#F5F0DB`. Do not recolour it to the RACCOOL
+palette; the cool teal against the warm site accent is what separates game from studio.
+
+| Theme | File | Colours |
+|---|---|---|
+| Dark | `assets/slabbed-logo-dark.png` | official, unchanged |
+| Light | `assets/slabbed-logo-light.png` | icon unchanged; "SLABBED" `#131313`; "CARD GRADER" `#2E6B67` (**SLABBED teal, on light**: same hue as `#91C5C2`, 4.9:1 on `#EDE4D6`) |
+
+The cream wordmark disappears on light grounds, so the light file is the on-light variant of the
+same mark. Both are 1400 px wide exports; the hero shows one per theme via CSS.
+
 ## 8. Checklist before publishing anything
 
 - [ ] Ground decided → palette matches it (dark = Albino, light = Northern)
