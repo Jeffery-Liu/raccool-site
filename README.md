@@ -8,7 +8,7 @@ One static page: `index.html` + `assets/`. No build step, no server code, no fra
 |---|---|
 | `index.html` | The whole site — HTML, CSS and the three.js card hero in one file |
 | `assets/card-pyrodon.jpg` | Card face used by the 3D hero (perspective-corrected from the desk render) |
-| `assets/desk.jpg`, `office.jpg` | Gallery concept art; `hearing.jpg` is retained as an unused historical asset |
+| `assets/overgrading-review.jpg`, `office.jpg`, `batch-review.png` | Gallery: in-game correctness report (main), office concept art, batch review; `hearing.jpg` is retained as an unused historical asset |
 | `assets/batch-review.png` | Current Unity batch-review screenshot; replaces the hearing image in the public gallery |
 | `assets/foil.jpg`, `two-angles.jpg`, `capsule.jpg` | Spare images; `capsule.jpg` is the social-share preview (`og:image`) |
 | `robots.txt`, `sitemap.xml` | Crawl rules and the URL list for search engines |
