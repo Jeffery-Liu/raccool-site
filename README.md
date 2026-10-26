@@ -8,7 +8,8 @@ One static page: `index.html` + `assets/`. No build step, no server code, no fra
 |---|---|
 | `index.html` | The whole site — HTML, CSS and the three.js card hero in one file |
 | `assets/card-pyrodon.jpg` | Card face used by the 3D hero (perspective-corrected from the desk render) |
-| `assets/desk.jpg`, `office.jpg`, `hearing.jpg` | Gallery images (concept renders) |
+| `assets/desk.jpg`, `office.jpg` | Gallery concept art; `hearing.jpg` is retained as an unused historical asset |
+| `assets/batch-review.png` | Current Unity batch-review screenshot; replaces the hearing image in the public gallery |
 | `assets/foil.jpg`, `two-angles.jpg`, `capsule.jpg` | Spare images; `capsule.jpg` is the social-share preview (`og:image`) |
 | `robots.txt`, `sitemap.xml` | Crawl rules and the URL list for search engines |
 | `assets/raccool-*.svg` | Logo mark and lockup — the `-dark` files from `Logo/Final/files_polished/` (Palette 02); the SVGs in `Logo/Final/` root are superseded |
@@ -86,15 +87,22 @@ All copy is plain HTML in `index.html`, top to bottom in page order:
 - Studio blurb, team cards, the three facts: `<section id="studio">`
 - Email, links, copyright: `<footer>`
 
-Keep the wording in industry-standard terms (vertical slice, playtest, demo). Do not add
-internal document names or numbers.
+Keep public copy aligned with the latest approved application facts: the game is in production,
+with surface inspection, batch review and sealing playable in the current build. Distinguish
+features in development from the intended full game. Use both card-grading simulation and narrative
+thriller, including multiple endings. Steam Deck compatibility remains a testing goal. Do not publish
+fixed campaign days, antagonists, specific offers, twists or an ending list, including in captions,
+alt text or metadata. Avoid obsolete prototype/vertical-slice milestone wording. Do not add internal
+document names, budget details or funding-application commentary to public pages.
 
 ## Editing images
 
 - Replace a gallery image by overwriting the file in `assets/` with the same name, 1600 px wide,
   JPEG quality ~85. Keep each under ~450 KB.
-- **When real in-game screenshots exist**, swap them in for the concept renders and change the
-  caption under the gallery (`.note`) so it no longer says "concept renders".
+- Label each image accurately. The desk and office gallery images remain concept art;
+  `batch-review.png` is an unaltered runtime screenshot from 23 October 2026. Keep the gallery note
+  explicit about the mixed sources. Do not restore the hearing image: its binder reveals a fixed
+  campaign length. Do not edit game UI to fabricate progress evidence.
 - The hero card face is `assets/card-pyrodon.jpg` (640 × 896). To use a different card, export the
   card art straight-on at the same size and overwrite the file. If the new card has a baked-in
   scratch in a different place, update `SCRATCH_A` / `SCRATCH_B` (UV coordinates, 0–1, origin
