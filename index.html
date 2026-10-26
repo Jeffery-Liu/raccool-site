@@ -95,7 +95,7 @@
 /* Palette 01 — Northern · light grounds (burnt orange on bone). Paired to ground, never mixed. */
 :root[data-theme="light"]{
   --ink:#EDE4D6; --desk:#E4D8C6; --desk-2:#F2EADD; --panel:#F4EEE3; --line:#D9CEBC;
-  --bone:#131313; --bone-2:#5B544B; --taupe:#827B73; --accent:#C96A24; --accent-hover:#AE5A1E; --lamp:#C96A24;
+  --bone:#131313; --bone-2:#5B544B; --taupe:#5B544B; --accent:#C96A24; --accent-hover:#AE5A1E; --lamp:#C96A24;
   --card-shadow:0 26px 48px rgba(52,34,20,.34);
   color-scheme:light;
 }
@@ -110,7 +110,7 @@ h1,h2,h3{font-family:var(--display);font-weight:700;line-height:.95;margin:0;tex
 h2{font-size:clamp(40px,6vw,72px);text-transform:uppercase}
 h3{font-size:26px;text-transform:uppercase;letter-spacing:.03em}
 p{margin:0 0 1em;max-width:62ch}
-.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:14px 22px;border:1px solid var(--bone-2);border-radius:4px;color:var(--bone);transition:background .2s,color .2s,border-color .2s}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:14px 22px;border:1px solid var(--bone-2);border-radius:4px;color:var(--bone);transition:background .2s,color .2s,border-color .2s}
 .btn:hover,.btn:focus-visible{background:var(--bone);color:var(--ink);outline:none}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.primary:hover,.btn.primary:focus-visible{background:var(--accent-hover);border-color:var(--accent-hover);color:#fff}
@@ -140,17 +140,21 @@ nav ul a:hover{color:var(--bone)}
 .hero-copy>*{pointer-events:auto}
 .hero-copy h1{font-size:clamp(64px,12vw,150px);text-transform:uppercase;line-height:.85;color:var(--bone)}
 .hero-copy h1 small{display:block;font-size:.28em;font-weight:500;letter-spacing:.12em;color:var(--lamp);margin-top:10px}
+/* light: orange subtitle fails AA on the light hero ground */
+:root[data-theme="light"] .hero-copy h1 small{color:var(--bone-2)}
+:root[data-theme="light"] .person .role,:root[data-theme="light"] .pillar .n{color:var(--taupe)}
 .hero-copy .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
 .hero-side{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);text-align:right;max-width:240px;line-height:1.7}
 .hero-side b{color:var(--bone);font-weight:500}
 @media (max-width:720px){.hero-copy{grid-template-columns:1fr}.hero-side{text-align:left;max-width:none}}
-@media (max-width:720px){#flaw{transform:translate(-50%,0);top:9%}}
 #flaw{position:absolute;left:50%;top:14%;transform:translate(calc(-50% + 330px),0);font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--lamp);background:color-mix(in srgb,var(--ink) 72%,transparent);border:1px solid color-mix(in srgb,var(--lamp) 50%,transparent);padding:8px 12px;border-radius:3px;opacity:0;transition:opacity .25s;pointer-events:none;white-space:nowrap}
+@media (max-width:1100px){#flaw{transform:translate(-50%,0);top:9%}}
 #flaw.on{opacity:1}
 #flaw::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--lamp);margin-right:9px;vertical-align:1px;box-shadow:0 0 12px var(--lamp)}
 
 /* sections */
 section{padding-block:clamp(72px,10vw,140px)}
+#studio{padding-top:0}
 .split{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,72px);align-items:start}
 @media (max-width:860px){.split{grid-template-columns:1fr}}
 .lede{font-size:clamp(19px,2vw,23px);line-height:1.5}
@@ -175,8 +179,9 @@ section{padding-block:clamp(72px,10vw,140px)}
 @media (max-width:860px){.gallery{grid-template-columns:1fr}.gallery figure:first-child{grid-row:auto}}
 .note{font-family:var(--mono);font-size:12px;color:var(--taupe);margin-top:14px;letter-spacing:.04em}
 
-.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px;margin-top:48px}
-@media (max-width:720px){.team{grid-template-columns:1fr}}
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+@media (max-width:860px){.team{grid-template-columns:1fr}}
+@media (min-width:861px){.person .role{min-height:2lh}}
 .person{padding:22px 24px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
 .person .role{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
 .person h3{text-transform:none;letter-spacing:0;font-size:24px}
