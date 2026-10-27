@@ -150,7 +150,10 @@ nav ul a:hover{color:var(--bone)}
 .hero-copy .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
 .hero-side{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);text-align:right;max-width:240px;line-height:1.7}
 .hero-side b{color:var(--bone);font-weight:500}
-@media (max-width:720px){.hero-copy{grid-template-columns:1fr}.hero-side{text-align:left;max-width:none}}
+@media (max-width:720px){.hero-copy{grid-template-columns:1fr}.hero-side{text-align:left;max-width:none}
+  /* phones: Wishlist + Discord on one row; "What is it?" is just the next scroll */
+  .hero-copy .actions{flex-wrap:nowrap;gap:8px;margin-top:16px}.hero-copy .actions .btn{font-size:15px;padding:10px 14px}.hero-copy .actions .more{display:none}
+  #hero canvas{touch-action:pan-y}}
 #flaw{position:absolute;left:50%;top:14%;transform:translate(calc(-50% + 330px),0);font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--lamp);background:color-mix(in srgb,var(--ink) 72%,transparent);border:1px solid color-mix(in srgb,var(--lamp) 50%,transparent);padding:8px 12px;border-radius:3px;opacity:0;transition:opacity .25s;pointer-events:none;white-space:nowrap}
 @media (max-width:1100px){#flaw{transform:translate(-50%,0);top:9%}}
 #flaw.on{opacity:1}
@@ -226,7 +229,7 @@ footer .fine{font-family:var(--mono);font-size:11px;color:var(--taupe);letter-sp
       <h1><img class="game-logo logo-dark" src="assets/slabbed-logo-dark.png" alt="SLABBED: Card Grader" width="1400" height="371"><img class="game-logo logo-light" src="assets/slabbed-logo-light.png" alt="SLABBED: Card Grader" width="1400" height="371"></h1>
       <div class="actions">
         <a class="btn primary" href="https://store.steampowered.com/app/5462900/SLABBED_Card_Grader/" target="_blank" rel="noopener">Wishlist on Steam</a>
-        <a class="btn" href="#game">What is it?</a>
+        <a class="btn more" href="#game">What is it?</a>
         <a class="btn" href="https://discord.gg/XxAbsrMjBB" target="_blank" rel="noopener">Join the Discord</a>
       </div>
     </div>
@@ -483,6 +486,23 @@ function setFromEvent(e){
 canvas.addEventListener('pointermove', e => { if (e.pointerType === 'touch' && !dragging) return; setFromEvent(e); });
 canvas.addEventListener('pointerdown', e => { dragging = true; setFromEvent(e); });
 addEventListener('pointerup', () => dragging = false);
+addEventListener('pointercancel', () => dragging = false); // phones: a vertical swipe scrolls the page instead
+
+// Phones: tilt the card by tilting the phone. iOS asks permission on the first tap of the card.
+// ponytail: portrait only; landscape would need gamma/beta swapped by screen.orientation.angle.
+let beta0 = null;
+addEventListener('deviceorientation', e => {
+  if (e.beta == null || e.gamma == null || !matchMedia('(pointer: coarse)').matches) return; // laptops with sensors keep the mouse
+  if (beta0 === null) beta0 = e.beta;
+  beta0 += (e.beta - beta0) * 0.01; // slowly re-centre on however the phone is being held
+  const c = v => Math.max(-1, Math.min(1, v));
+  target.set(c(e.gamma / 25), c((beta0 - e.beta) / 25));
+  lastInput = performance.now();
+});
+canvas.addEventListener('click', () => {
+  if (typeof DeviceOrientationEvent !== 'undefined' && DeviceOrientationEvent.requestPermission)
+    DeviceOrientationEvent.requestPermission().catch(() => {});
+}, { once: true });
 
 const rot = new THREE.Vector2(0, 0);
 const MAX_X = 0.42, MAX_Y = 0.56; // radians ≈ ±24° / ±32°
